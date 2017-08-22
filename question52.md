@@ -35,7 +35,6 @@ var totalNQueens = function(n) {
             }
         }
     }
-
     solve(0);
     return result;
 
