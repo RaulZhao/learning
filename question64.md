@@ -24,7 +24,7 @@ var minPathSum = function(grid) {
     for(let j=1; j<n; j++) {
         result[0][j] = result[0][j-1] + grid[0][j];
     }
-    console.log(result);
+    
     for(let i=1; i<m; i++) {
         for(let j=1; j<n; j++) {
             result[i][j] = grid[i][j] + Math.min(result[i-1][j], result[i][j-1]);
