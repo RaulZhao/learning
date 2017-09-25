@@ -71,6 +71,28 @@ function quickSort(array) {
 }
 
 
+function mergeSort(array) {
+  function sort(arr) {
+    if (arr.length <= 1) {
+      return arr;
+    }
+    let midIndex = Math.floor(arr.length / 2);
+    return merge(sort(arr.slice(0, midIndex)), sort(arr.slice(midIndex)));
+  }
+
+  function merge(left, right) {
+    let temp = [];
+    while(left.length > 0 && right.length > 0) {
+      let current = left[0] < right[0] ? left.shift() : right.shift();
+      temp.push(current);
+    }
+    return temp.concat(left, right);
+  }
+
+  return sort(array);
+}
+
+
 // jquery deffered
 var jq = document.createElement('script');
 jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js";

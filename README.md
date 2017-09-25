@@ -1,4 +1,2 @@
 # learning
-- Red
-- Green
-+ Blue
+Questions solved by Javascript
