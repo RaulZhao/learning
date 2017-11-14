@@ -1,21 +1,21 @@
 function insertionSort(arrs) {
-  let result = arrs.slice(0);
+  const result = arrs.slice(0);
   let tmp;
 
-  if (arrs.length <= 1) {
+  if(arrs.length <= 1) {
     return arrs;
   }
-  for(let i = 1; i < arrs.length; i++) {
-    tmp = arrs[i];
+  for(let i=1; i < result.length; i++) {
     let j = i-1;
-    for( j ; j >= 0; j--) {
+    while (j >= 0) {
+      tmp = result[j+1];
       if(tmp >= result[j]) {
         break;
-      } else {
-        result[j+1] = result[j];
       }
+
+      [result[j], result[j+1]] = [result[j+1], result[j]];
+      j--;
     }
-    result[j+1] = tmp;
   }
   return result;
 }
