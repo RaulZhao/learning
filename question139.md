@@ -46,43 +46,26 @@ var wordBreak = function(s, wordDict) {
  * @param {string[]} wordDict
  * @return {boolean}
  */
-var wordBreak = function(s, wordDict) {
-    // wordDict.sort((a, b) => a.length < b.length);
-    let res = false;
+ var wordBreak = function(s, wordDict) {
+  let len = s.length;
+ 	let result = false;
 
-    function findWord(dictArr, word, wordLen) {
-        let dicts = dictArr.slice(0);
-        if(wordLen < 1) {
-            res = true;
-            return true;
-        }
-        if(dicts.length < 1) {
-            return false;
-        }
-        let dictLen = dicts.length;
+ 	checkWord(s, 0);
+  return result;
 
-        for(let i=0; i < dictLen; i++) {
-            let currentDict = dicts.shift();
-            let currentWord = word;
-            let currentWordLen = wordLen;
-            if (currentWord.length >= currentDict.length) {
-                for(let i=0; i <= currentWord.length - currentDict.length; i++) {
-                    let splitStr = currentWord.slice(i, i + currentDict.length);
-                    if(currentDict === splitStr) {
-                        currentWord = currentWord.slice(0,i) + ','
-                            + currentWord.slice(i + currentDict.length, currentWord.length);
-                        currentWordLen = currentWordLen - currentDict.length;
-                    }
-                }
-            }
-
-            if(findWord(dicts, currentWord, currentWordLen)) {
-                return true;
-            }
-            dicts.push(currentDict);
-        }
-    }
-    findWord(wordDict, s, s.length);
-    return res;
-};
+ 	function checkWord(str, start) {
+ 		if (start >= len) {
+ 			result = true;
+ 			return true;
+ 		}
+ 		for(let i=start; i < len; i++) {
+ 			if (wordDict.indexOf(str.substring(start, i+1)) > -1) {
+ 				if (checkWord(str, i+1)) {
+ 					return true;
+ 				}
+ 			}
+ 		}
+ 		return false;
+ 	}
+ };
 ```
