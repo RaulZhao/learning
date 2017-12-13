@@ -49,3 +49,31 @@ var invertTree = function(root) {
     return root;
 };
 ```
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        revert(root);
+        return root;
+    }
+    public void revert(TreeNode node) {
+        if(node == null) {
+            return;
+        }
+        TreeNode tmp = node.left;
+        node.left = node.right;
+        node.right = tmp;
+        revert(node.left);
+        revert(node.right);
+    }
+}
+```

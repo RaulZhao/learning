@@ -100,7 +100,6 @@ document.getElementsByTagName('head')[0].appendChild(jq);
 
 var defered = jQuery.Deferred();
 var wait = function(dfd) {
-
   setTimeout(function() {
     // throw new Error("Bomb");
     dfd.resolve("******success callback...");

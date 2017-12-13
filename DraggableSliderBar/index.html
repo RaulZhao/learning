@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style type="text/css">
+      #slider_bar {
+        height: 300px;
+        padding: 50px;
+      }
+      #wrapper {
+        width: 300px;
+        height: 10px;
+        border: 1px solid black;
+        padding-left:10px;
+      }
+      .progress {
+        height: 10px;
+        width: 20px;
+        background-color: lightblue;
+      }
+      #drag_spot {
+        display: inline-block;
+        height: 10px;
+        width: 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        float: right;
+        background-color: yellow;
+        cursor: pointer;
+      }
+      #input_box {
+        display: block;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='slider_bar'>
+      <div id='wrapper' class='progress_bar'>
+        <div class='progress'>
+          <span id='drag_spot'></span>
+        </div>
+      </div>
+      <input id="input_box" type="text" />
+    </div>
+
+    <script src="./slide.js"></script>
+  </body>
+</html>

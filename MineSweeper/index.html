@@ -1,0 +1,118 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>Mine Sweeper</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style type="text/css">
+      #wrapper {
+        margin: 20px;
+      }
+      .row {
+        height: 25px;
+      }
+      button {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        outline:none;
+      }
+      button.open {
+        background-color: lightblue;
+        cursor: default;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+    </div>
+
+    <script type="application/javascript">
+      window.onload = function() {
+        let userName = prompt("Enter you Name:");
+        $("head>title").text(userName);
+        const $wrapper = $('#wrapper');
+
+        class Board {
+          constructor(m=10, n=10, mines=10) {
+            this.m = m;
+            this.n =n;
+            this.mines = mines;
+            this.mineArray = [];
+            this.init();
+          }
+
+          init() {
+            for(let i=0; i < this.m; i++) {
+              this.mineArray.push([]);
+              for(let j=0; j < this.n; j++) {
+                this.mineArray[i][j] = 0;
+              }
+            }
+            this.setRandomMinesGrid();
+          }
+
+          getSurroundingMineNum(row, column) {
+            let sum = 0;
+
+            for(let i=row-1; i <= row+1; i++) {
+              for(let j=column-1; j <= column+1; j++) {
+                if (i >=0 && i < this.m && j >= 0 && j < this.n && this.mineArray[i][j] === -1) {
+                  sum += 1;
+                }
+              }
+            }
+            return sum;
+          }
+
+          setRandomMinesGrid() {
+            let total = this.m * this.n;
+
+            for(let i=0; i < this.mines; i++) {
+              let currVal = Math.round(Math.random() * total)
+              if(this.mineArray[Math.floor(currVal/this.n)][currVal%this.n] === -1) {
+                i--;
+              } else {
+                this.mineArray[Math.floor(currVal/this.n)][currVal%this.n] = -1;
+              }
+            }
+            for(let i=0; i < this.m; i++) {
+              for(let j=0; j< this.n; j++) {
+                if (this.mineArray[i][j] != -1) {
+                  this.mineArray[i][j] = this.getSurroundingMineNum(i, j);
+                }
+              }
+            }
+          }
+
+          generateUIComponent() {
+            for(let i=0; i < this.m; i++) {
+              $wrapper.append(`<div class="row mineRow_${i}"></div>`);
+              let $currentRow = $(`.mineRow_${i}`);
+              for(let j=0; j < this.n; j++) {
+                $currentRow.append(`<button class="column" data-position="${i},${j}"
+                  value=${this.mineArray[i][j]} />`);
+              }
+            }
+
+            $('button').click((evt) => {
+              let $ele = $(evt.target);
+              if (parseInt(evt.target.value) < 0) {
+                $ele.css('background-color', 'red');
+                alert("BOOM");
+              } else {
+                $ele.text($ele.val());
+                $ele.addClass('open');
+              }
+            });
+          }
+        }
+
+        const board = new Board(8, 10);
+        board.generateUIComponent();
+      }
+    </script>
+  </body>
+</html>

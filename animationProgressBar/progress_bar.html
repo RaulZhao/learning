@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Raul Sliding Window</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">></script>
+    <style type="text/css">
+      .progress_wrapper {
+        width: 300px;
+        border: 1px solid black;
+        margin: 5px 0;
+      }
+      .progressbar {
+        height: 15px;
+        width: 0%;
+        background-color: lightblue;
+      }
+      .progress-btn {
+        cursor: pointer;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="progress-btn">Add New</button>
+    <div class="outside">
+      <!-- <div id="wrapper" class="progress_wrapper">
+        <div class="progressbar"></div>
+      </div> -->
+    </div>
+    <script>
+      window.onload = function() {
+        const step = 1;
+        let index = 0;
+        function Progressbar(initProgress, endingProgress, id) {
+          this.initProgress = initProgress;
+          this.endingProgress = endingProgress;
+          this.currentProgress = initProgress;
+          this.id = id;
+        }
+        Progressbar.prototype.animate = function(width) {
+          width = Math.max(width, 0);
+          width = Math.min(width, 100);
+          $(`#wrapper_${this.id}`).find('.progressbar').css('width', `${width}%`);
+        }
+        Progressbar.prototype.insertNewDiv = function() {
+          $('.outside').append(`<div id="wrapper_${this.id}" class="progress_wrapper">
+            <div class="progressbar"></div>
+          </div>`);
+        }
+        Progressbar.prototype.start = function() {
+          this.insertNewDiv();
+          let intervalID = setInterval(function() {
+            this.currentProgress += step;
+            this.currentProgress = Math.min(this.currentProgress, this.endingProgress);
+            this.animate(this.currentProgress);
+            if (this.currentProgress >= this.endingProgress) {
+              clearInterval(intervalID);
+            }
+          }.bind(this), 20);
+        }
+
+        $(".progress-btn").on('click', function() {
+          let instance = new Progressbar(0, 100, index);
+          index++;
+          instance.start();
+        })
+      }
+    </script>
+  </body>
+</html>
