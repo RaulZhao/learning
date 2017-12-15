@@ -13,16 +13,15 @@
   $('#slider_bar').mousemove((evt) => {
     if(isDragging) {
       let marginLeft = evt.pageX;
-      console.log("****", marginLeft);
       let moveTo = marginLeft - startPosition;
-
       if (moveTo <= 0) {
         moveTo = 0;
       } else if (moveTo >= 300) {
         moveTo = 300;
       }
+
+      setPercent(moveTo)
       $input.val(moveTo);
-      $('.progress').css('width', `${moveTo}px`);
     }
   });
 
@@ -41,8 +40,7 @@
     } else if (percent >= 300) {
       percent = 300;
     }
-    console.log("****", percent);
     $('.progress').css('width', `${percent}px`);
+    $('#drag_spot').css('left', `${percent-5}px`);
   }
-
 })();

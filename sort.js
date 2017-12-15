@@ -143,6 +143,26 @@ defer.done(function(a,b){
 
 defer.resolve( 2, 3 );
 
+// multiple Ajax call with dependencies
+var promise1 = $.ajax({
+  url: "/domain/user",
+  method: "get",
+  data: { "message": "hello" },
+  dataType: "json"
+});
+
+var promise2 = promise1.then((res) => {
+  return $.ajax({
+    url: "/domain/order",
+    data: { "userId": res.data },
+    method: "get",
+    dataType: "json"
+  });
+})
+
+promise2.done((res) => console.log(res));
+
+
 // Suggested way
 var myDeferred = $.post('/url/json/', {json:JSON.stringify({'error':true})})
   .then(function (response) {
