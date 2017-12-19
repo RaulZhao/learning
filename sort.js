@@ -93,56 +93,6 @@ function mergeSort(array) {
 }
 
 
-// jquery deffered
-var jq = document.createElement('script');
-jq.src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js";
-document.getElementsByTagName('head')[0].appendChild(jq);
-
-var defered = jQuery.Deferred();
-var wait = function(dfd) {
-  setTimeout(function() {
-    // throw new Error("Bomb");
-    dfd.resolve("******success callback...");
-  }, 5000);
-
-  setTimeout(function() {
-    dfd.reject("*******error callback...");
-  }, 6000);
-
-  return dfd;
-}
-
-try {
-  $.when(wait(defered))
-    .done((res) => console.log("from first done ",res))
-    .done((res) => console.log("from second done ", res))
-    .fail((res) => console.log("from fail ", res))
-    .then((res) => console.log("from then ", res), (res) => {console.log("from then", res)})
-    .always((res) => console.log("from always ", res));
-} catch (e) {
-  console.log("Error happened", e);
-}
-
-
-// then() will return new Promise object. The return value of .then() callback will become the parameter for next promise chain callback
-var defer = jQuery.Deferred();
-
-defer.done(function(a,b){
-            return a * b;
-}).done(function( result ) {
-            console.log("result = " + result);
-}).then(function( a, b ) {
-            return a * b;
-}).done(function( result ) {
-            console.log("result = " + result);
-}).then(function( a, b ) {
-            return a * b;
-}).done(function( result ) {
-            console.log("result = " + result);
-});
-
-defer.resolve( 2, 3 );
-
 // multiple Ajax call with dependencies
 var promise1 = $.ajax({
   url: "/domain/user",

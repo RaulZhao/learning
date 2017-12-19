@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <style type="text/css">
+    div {
+      border-radius: 5px;
+    }
+    .progress_btn {
+      margin-left: 10px;
+    }
+    .progress {
+      margin: 10px;
+      width: 250px;
+      height: 10px;
+      border:1px solid grey;
+    }
+    .bar {
+      width: 0%;
+      height: 10px;
+      background-color: lightblue;
+      transition: width 5s;
+    }
+    </style>
+  </head>
+  <body>
+    <button class="progress_btn">Click</button>
+    <div class="wrapper">
+      <div class="progress">
+        <div class="bar bar_0">
+        </div>
+      </div>
+    </div>
+    <script>
+      window.onload = function() {
+        let count = 0;
+
+        function runProgress(percent) {
+          document.querySelector(`.bar_${count}`).style.width = `${percent}%`;
+        }
+
+        runProgress(100);
+
+        function addNewProgress() {
+          count++;
+          let newEle = document.createElement('div');
+          newEle.className = 'progress';
+          let newEle2 = document.createElement('div');
+          newEle2.className = `bar bar_${count}`;
+          newEle2.style.width = '0%';
+          newEle.appendChild(newEle2);
+          document.querySelector('.wrapper').appendChild(newEle);
+        }
+
+        document.querySelector('.progress_btn').onclick = function() {
+          addNewProgress();
+          setTimeout(() => {
+            runProgress(90);
+          },100);
+        }
+      }
+    </script>
+  </body>
+</html>

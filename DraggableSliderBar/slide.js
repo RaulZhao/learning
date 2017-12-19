@@ -10,7 +10,7 @@
     isDragging = false;
   });
 
-  $('#slider_bar').mousemove((evt) => {
+  $('body').mousemove((evt) => {
     if(isDragging) {
       let marginLeft = evt.pageX;
       let moveTo = marginLeft - startPosition;
@@ -20,7 +20,7 @@
         moveTo = 300;
       }
 
-      setPercent(moveTo)
+      setPercent(moveTo);
       $input.val(moveTo);
     }
   });

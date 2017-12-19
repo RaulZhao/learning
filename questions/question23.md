@@ -48,3 +48,71 @@ var mergeKLists = function(lists) {
     return lists[0];
 };
 ```
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    LinkedList<ListNode> headers = new LinkedList<ListNode>();
+    ListNode dummy = new ListNode(-1);
+    ListNode result = new ListNode(-1);
+    NodeComparator comparator = new NodeComparator();
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        for(int i=0; i < lists.length; i++) {
+            if (lists[i] != null) {
+                headers.add(lists[i]);
+            }
+        }
+        if (headers.size() < 1) {
+            return null;
+        }
+        dummy = getNext();
+        result.next = dummy;
+        while(dummy != null) {
+            ListNode tmp = getNext();
+            dummy.next = tmp;
+            dummy = tmp;
+        }
+        return result.next;
+    }
+    public ListNode getNext() {
+        Collections.sort(headers, comparator);
+        if (headers.size() < 1) {
+            return null;
+        }
+        ListNode currNode = headers.removeFirst();
+        ListNode res = currNode;
+        currNode = currNode.next;
+
+        if(currNode != null) {
+            headers.addFirst(currNode);
+        }
+        return res;
+    }
+}
+
+class NodeComparator implements Comparator<ListNode> {
+    public int compare(ListNode node1, ListNode node2) {
+        if (node1 == null) {
+            return -1;
+        } else if (node2 == null) {
+            return 1;
+        } else {
+            if (node1.val > node2.val) {
+                return 1;
+            } else if(node1.val == node2.val) {
+                return 0;
+            } else {
+                return -1;
+            }
+        }
+    }
+}
+```
