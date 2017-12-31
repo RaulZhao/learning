@@ -33,10 +33,6 @@
   transition: background-color 0.3s;
 }
 
-.tabs-menu-item:hover {
-  background-color: #eee;
-}
-
 .tabs-menu-item.active {
   cursor: default;
   background-color: white;

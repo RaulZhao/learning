@@ -5,7 +5,7 @@
 
 ```java
   class Solution {
-    HashMap<Integer, Boolean>
+    HashMap<Integer, Boolean> hs = new HashMap<Integer, Boolean>();
 
   }
 ```
