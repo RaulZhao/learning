@@ -29,6 +29,7 @@ Return false
 
 ```java
 class Solution {
+    // Number of pound sign should be always 1 more greater than nodes amount
     public boolean isValidSerialization(String preorder) {
         String[] strArray = preorder.split(",");
         Stack<String> stack = new Stack<String>();
