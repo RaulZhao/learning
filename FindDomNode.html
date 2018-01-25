@@ -1,0 +1,76 @@
+<html>
+    <head></head>
+    <body>
+        <div>
+            <div id="dom1">
+                <div></div>
+                <div></div>
+                <div>
+                    <div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div id="node1">This is the node</div>
+                        <div></div>
+                    </div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+
+            <div id="dom2">
+                <div></div>
+                <div></div>
+                <div>
+                    <div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <div>This is the other node</div>
+                        <div></div>
+                    </div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var tree1 = document.getElementById("dom1"),
+                tree2 = document.getElementById("dom2"),
+                node1 = document.getElementById("node1");
+
+            // NodeList.prototype.indexOf = function (item) {
+            //     return Array.prototype.indexOf.call(this, item);
+            // };
+            //build a ref tree that contains the parent index
+            function getPaths (childNode, baseNode, res) {
+                res = res || [];
+                if(childNode !== baseNode) {
+                    var parentNode = childNode.parentNode;
+                    if(parentNode) {
+                        var index = Array.prototype.indexOf.call(parentNode.childNodes, childNode);
+                        res.push(index);
+                        return getPaths(parentNode, baseNode, res);
+                    }
+                }
+                return res;
+            }
+            
+            function getChildNodeFromParentTree (parentNode, treePaths) {
+                var index = treePaths.pop();
+                var childNode = parentNode.childNodes[index];
+
+                if(treePaths.length > 0) {
+                    return getChildNodeFromParentTree(childNode, treePaths);
+                } else {
+                    return childNode;
+                }
+            }
+            
+            var otherNode = getChildNodeFromParentTree(tree2, getPaths(node1, tree1));
+            console.log("The node is: ", otherNode);
+        </script>
+    </body>
+</html>

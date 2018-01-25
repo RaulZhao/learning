@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<style type="text/css">
+			#div1 {
+				width: 50px;
+				height: 50px;
+				background-image: url("./images/icon1.png");
+			}
+			#span1 {
+				float: right;
+				background-color: azure;
+				/*position: absolute;*/
+				display: none;
+			}
+			#div1:hover > span{
+				display: block;
+			}
+			#div2 {
+				float: left;
+			}
+            #link-pic {
+                cursor: pointer;
+                position: relative;
+                width: 50px;
+                height: 50px;
+            }
+            #link-pic .tooltip {
+                display: none;
+                position: absolute;
+                left: 50px;
+                width: 200px;
+            }
+            #link-pic:hover .tooltip {
+                display: inline-block;
+            }
+		</style>
+	</head>
+	<body>
+		<div>
+			Hello World!
+		</div>
+		<div id="div1">
+			<span id="span1">Ad</span>
+			<!-- <div id="div2">I am good</div>
+			<div></div> -->
+		</div>
+		<a id="link-pic" href=".com">
+            <img src="./images/icon1.png">
+            <span class="tooltip">
+                <h3>Previewing...</h3>
+            </span>
+        </a>
+	</body>
+	<script type="text/javascript">
+		let ele = document.getElementById('span1');
+        let canShowTooltip = true;
+
+		document.getElementById('div1').addEventListener("mouseover", (evt) => {
+			ele.style.display = "block";
+		});
+		document.getElementById('div1').addEventListener("mouseout", (evt) => {
+			ele.style.display = "none";
+		});
+		document.querySelector("#link-pic").addEventListener("click", (evt) => {
+			console.log("*******", evt.target);
+			window.location.href = "https://www.google.com";
+		});
+        document.querySelector("#link-pic").addEventListener("mouseover", (evt) => {
+            if (canShowTooltip) {
+                canShowTooltip = false;
+                renderTooltip(evt.target);
+            }
+        });
+        document.querySelector("#link-pic").addEventListener("mouseout", (evt) => {
+            canShowTooltip = true;
+        });
+        function fetchData() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve([
+                        {
+                            name: "Xiaoming",
+                            age: 30
+                        },
+                        {
+                            name: "Lily",
+                            age: new Date()
+                        }
+                    ]);
+                },3000);
+            });
+        }
+
+        function renderTooltip(ele) {
+            let element = ele.parentElement.querySelector(".tooltip");
+            let contentFrag = document.createDocumentFragment();
+
+            if(element) {
+                fetchData().then(data => {
+                    console.log(data);
+                    data.forEach((item) => {
+                        let li = document.createElement("li");
+                        li.textContent = item.name + " - " + item.age;
+                        contentFrag.appendChild(li);
+                    });
+
+                    element.innerHTML = "";
+                    element.appendChild(contentFrag);
+                })
+            }
+        }
+	</script>
+</html>
