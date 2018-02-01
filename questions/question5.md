@@ -18,26 +18,46 @@ Output: "bb"
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    const scannedList = {};
-    let start = 0;
-    let end = 0;
+    if(s.length < 2) {
+        return s;
+    }
+    let longestPalindrome = "";
+    
+    for(let i = 0; i < s.length; i++) {
+        let tmpPalindrome = findPalindromeFrom(s, i, i);
 
-    for(let i = 1; i < s.length; i++ ) {
-        for (let j = i; j > -1; j--) {
-            if (s[i] === s[j] && (i-j <3 || scannedList[(j+1)+","+(i-1)])) {
-                if (end - start <= i - j) {
-                    start = j;
-                    end = i;
-                }
-                scannedList[(j)+","+(i)] = 1;
+        if(tmpPalindrome.length > longestPalindrome.length) {
+            longestPalindrome = tmpPalindrome;
+        }
+        if(i < s.length-1 && s[i] === s[i+1]) {
+            tmpPalindrome = findPalindromeFrom(s, i, i+1);
+            if(tmpPalindrome.length > longestPalindrome.length) {
+                longestPalindrome = tmpPalindrome;
             }
         }
     }
-    return s.substring(start, end + 1);
+    
+    return longestPalindrome;
+
+    function findPalindromeFrom(str, leftIndex, rightIndex) {
+        let left = leftIndex - 1;
+        let right = rightIndex + 1;
+        let result = str.substring(leftIndex, rightIndex+1);
+
+        while(left >= 0 && right < str.length && left < right) {
+            if(str[left] !== str[right]) {
+                return result;
+            }
+            result = str[left] + result + str[right];
+            left--;
+            right++;
+        }
+        return result;
+    }
 };
 ```
 
-DP
+DP - Time Limit Exceeded
 ```js
 /**
  * @param {string} s
