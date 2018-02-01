@@ -4,6 +4,39 @@ For "(()", the longest valid parentheses substring is "()", which has length = 2
 
 Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
 
+```js
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestValidParentheses = function(s) {
+    if(s.length < 2) {
+        return 0;
+    }
+    let maxValue = 0;
+    // index of left parentheses
+    const stack = [];
+    // longest match from current index to left
+    const dp = [];
+    
+    for(let i=0; i < s.length; i++) {
+        if(s[i] === '(') {
+            stack.push(i);
+        } else {
+            if(stack.length > 0) {
+                let leftIndex = stack.pop();
+                dp[i] = dp[leftIndex-1] > 0 ? (dp[leftIndex-1] + i - leftIndex + 1) : (i - leftIndex + 1);
+                
+                maxValue = Math.max(maxValue, dp[i]);
+            } else {
+                // not valid parentheses
+            }
+        }
+    }
+    return maxValue;
+};
+```
+
 ```java
 class Solution {
     LinkedList<Parenthesis> list = new LinkedList<Parenthesis>();
