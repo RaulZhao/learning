@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <style type="text/css">
+            .calculator-wrapper {
+                margin: 50px;
+                width: 190px;
+            }
+            .screen,
+            .keyboard {
+                display: flex;
+                justify-content: center;
+            }
+            #display {
+                width: 188px;
+                height: 25px;
+                border: 1px solid lightgrey;
+                text-align: right;
+            }
+            .keyboard button {
+                width: 35px;
+                height: 35px;
+                border: 1px solid gray;
+                
+            }
+            .keyboard .span2 {
+                height: 70px;
+            }
+            button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="calculator-wrapper">
+            <div class="screen">
+                <input id="display"></input>
+            </div>
+            <div class="keyboard">
+                <p>
+                    <button value="7">7</button>
+                    <button value="8">8</button>
+                    <button value="9">9</button>
+                </p>
+                <p>
+                    <button value="4">4</button>
+                    <button value="5">5</button>
+                    <button value="6">6</button>
+                </p>
+                <p>
+                    <button value="1">1</button>
+                    <button value="2">2</button>
+                    <button value="3">3</button>
+                </p>
+                <p>
+                    <button value="=">=</button>
+                    <button value=".">.</button>
+                    <button value="0">0</button>
+                </p>
+                <p>
+                    <button value="C">C</button>
+                    <button class="span2" value="+">+</button>
+                </p>
+            </div>
+        </div>
+        <script type="application/javascript" src="./calculator.js"></script>
+    </body>
+</html>
