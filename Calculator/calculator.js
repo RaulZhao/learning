@@ -6,9 +6,7 @@
 
     Array.prototype.forEach.call(buttons, (button) => {
         button.addEventListener("click", evt => {
-            let res = calculate(evt.target.value);
-
-            display.value = res;
+            display.value = calculate(evt.target.value);;
         });
     });
 
@@ -20,6 +18,8 @@
                     stack.push(parseFloat(currentVal));
                     result = currentVal;
                     currentVal = "";
+                } else {
+                    result = stack.length > 0 ? "" + stack[stack.length-1] : "";
                 }
                 break;
             case "=":
@@ -35,7 +35,7 @@
             case "C":
                 stack = [];
                 currentVal = "";
-                result = currentVal;
+                result = "0";
                 break;
             default:
                 currentVal += input;
