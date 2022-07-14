@@ -16,5 +16,5 @@ def longest_common_prefix(strs)
         prefix << curr_char 
         i += 1
     end
-    return prefix
+    prefix
 end
