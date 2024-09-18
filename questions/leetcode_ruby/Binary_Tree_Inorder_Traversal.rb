@@ -13,20 +13,20 @@
 # @return {Integer[]}
 
 def inorder_traversal(root)
-    @results = []
-    traverse(root)
-    @results
+  @results = []
+	traverse(root)
+	@results
 end
 
 def traverse(node)
-    return if node.nil?
-    unless node.left.nil?
-        traversal(node.left)
-    end
-    unless node.nil?
-        @results << node.val
-    end
-    unless node.right.nil?
-        traversal(node.right)
-    end 
+	return if node.nil?
+	unless node.left.nil?
+		traversal(node.left)
+	end
+	unless node.nil?
+		@results << node.val
+	end
+	unless node.right.nil?
+		traversal(node.right)
+	end
 end
